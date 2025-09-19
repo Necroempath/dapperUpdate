@@ -6,10 +6,10 @@ public interface IAuthorRepository
 {
     public Author GetAuthor(int id);
     public IEnumerable<Author> GetAuthors();
-    public void DeleteAuthor(int id);
-    public void DeleteAuthors(int[] ids);
+    public void RemoveAuthor(int id);
+    public void RemoveAuthors(int[] ids);
     public Author AddAuthor(Author author);
     public void AddAuthors(IEnumerable<Author> authors);
-    public Author UpdateAuthor(Author author);
-    public Author UpdateAuthors(IEnumerable<Author> authors);
+    public void UpdateAuthor(Author author);
+    public void UpdateAuthors(IEnumerable<Author> authors);
 }

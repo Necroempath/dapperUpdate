@@ -28,7 +28,7 @@ public class SqlAuthorRepository : IAuthorRepository
         return _connection.Query<Author>(query);
     }
 
-    public void DeleteAuthor(int id)
+    public void RemoveAuthor(int id)
     {
         string query = @"DELETE FROM [Author]
                          WHERE Id = @id";
@@ -36,11 +36,11 @@ public class SqlAuthorRepository : IAuthorRepository
         _connection.Execute(query, new { @id = id });
     }
 
-    public void DeleteAuthors(int[] ids)
+    public void RemoveAuthors(int[] ids)
     {
         foreach(var id in ids)
         {
-            DeleteAuthor(id);
+            RemoveAuthor(id);
         }
     }
 
@@ -63,13 +63,25 @@ public class SqlAuthorRepository : IAuthorRepository
         }
     }
 
-    public Author UpdateAuthor(Author author)
+    public void UpdateAuthor(Author author)
     {
-        throw new NotImplementedException();
+        string query = @"UPDATE [Author]
+                         SET FirstName = @firstName, LastName = @lastName
+                         WHERE ID = @id";
+
+        _connection.Execute(query, new
+        {
+            @firstName = author.FirstName,
+            @lastName = author.LastName,
+            @id = author.Id
+        });
     }
 
-    public Author UpdateAuthors(IEnumerable<Author> authors)
+    public void UpdateAuthors(IEnumerable<Author> authors)
     {
-        throw new NotImplementedException();
+        foreach (var author in authors)
+        {
+            UpdateAuthor(author);
+        }
     }
 }
